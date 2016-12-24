@@ -16,4 +16,3 @@ yum instal -y net-tools vim >> /dev/null  2>&1
 result "执行yum失败"
 echo "更新yum源"
 yumSource_path=/etc/yum.repos.d
-echo ${yumSource_path}
