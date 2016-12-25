@@ -16,7 +16,7 @@ case "$choose" in
 	1)
 		
 		lock optimization 
-		source ./auto_optimization/optimization.sh
+		source ./scripts/optimization.sh
 		optimization
 
 ;;
