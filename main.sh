@@ -52,6 +52,8 @@ case "$1" in
 		;;
 			3)
 				echo "开始自动安装Mariadb"
+				source ./scripts/mariadb.sh
+				mariadb mariadb-10.1.19-linux-x86_64.tar.gz
 		;;
 			'')
 				echo "未做任何选择"

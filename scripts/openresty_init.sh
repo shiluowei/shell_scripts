@@ -68,6 +68,12 @@ function remove() {
 	userdel ${openrestyUser}
 	rm -rf ${openrestyPath}
 	rm -rf /usr/local/bin/luajit
+	if [ -d ./backup ]
+		then 
+		tar cfz ./backup/wwwlua_`date +%F:%T`.tar.gz ${luaRoot}
+	else
+		mkdir ./backup && tar cfz ./backup/wwwlua_`date +%F:%T`.tar.gz ${luaRoot}
+	fi
 	rm -rf ${luaRoot}
 	removeLock openresty_init
 	echo '删除OpenResty成功'
