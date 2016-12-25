@@ -30,8 +30,8 @@ function optimization() {
 	sed -i "s/\#Port 22/Port 2222/g"  ${sshConfigPath}
 	systemctl restart sshd
 	result "配置ssh失败" "配置ssh成功"
-	cd ./lock && touch optimization.lock && cd ../
-
+	lock optimization
+	result "创建锁文件失败" "创建锁文件,自动优化过程结束"
 }
 
 

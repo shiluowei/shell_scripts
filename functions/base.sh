@@ -19,8 +19,19 @@ function result() {
 	fi
 }
 
-#设置一个锁的函数方法，用来测试自动化脚本是否成功安装过
+#创建一个锁函数
 function lock() {
+	cd ${startPath}
+	if [ -d ./lock ]
+		then
+			cd ./lock && touch $1.lock && cd ../
+		else
+			mkdir ./lock && cd ./lock && touch $1.lock && cd ../
+	fi
+	
+}
+#设置一个判断时候有锁文件的函数方法，用来测试自动化脚本是否成功安装过
+function ifLock() {
 	if [ -f ./lock/$1.lock ]
 	then
 		echo -e  "${RED_COLOR}$1已经安装过${RES}"
@@ -28,4 +39,9 @@ function lock() {
 	else
 		echo -e "${GREEN_COLOR}$1开始安装${RES}"
 	fi
+}
+
+function removeLock() {
+	cd ${startPath}
+	rm -rf ./lock/$1.lock
 }
