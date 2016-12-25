@@ -36,7 +36,28 @@ function openresty_init() {
 	--add-module=./bundle/nginx_upstream_check_module-0.3.0/ && \
 	make && make install) >> /dev/null 2>&1
 	result "openresty 编译安装失败退出程序" "openresty 编译安装成功，继续下一步"
+	echo "创建nginx项目"
+	cd ${startPath}
+	mkdir ${luaRoot} && cp -r ${lualibPath} ${luaRoot} && mkdir ${luaRoot}/lua && cp ./src/openresty/main.lua ${luaRoot}/lua
+	cat >>${luaRoot}/wwwlua.conf<<-EOF
+		server {
+			listen 80;
+			server_name ${server_name};
+			location / {
+			default_type 'text/html';
+			#lua_code_cache off;
+			content_by_lua_file /wwwlua/lua/main.lua;
+			}
+		}
+	EOF
+	#上传nginx.conf
+	mv ${openrestyPath}/nginx/conf/nginx.conf  ${openrestyPath}/nginx/conf/nginx.conf_`date +%F:%T`
+	cp ./src/openresty/nginx.conf  ${openrestyPath}/nginx/conf
+	#启动nginx
+	${openrestyPath}/nginx/sbin/nginx 
+	result "openresty 启动失败" "openresty 启动成功"
+	#创建锁文件
+	cd ${startPath}
+	cd ./lock && touch openresty_init.lock && cd ../
+	result "创建锁文件失败" "创建锁文件成功"
 }
-
-
-

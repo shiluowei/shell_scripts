@@ -3,6 +3,7 @@
 #date:
 #intro:
 #自动执行脚本的主函数
+ifRoot
 source ./functions/color.sh
 source ./functions/base.sh
 source ./conf/conf.sh
@@ -21,6 +22,7 @@ case "$choose" in
 
 ;;
 	2)
+		lock openresty_init
 		source ./scripts/openresty_init.sh
 		openresty_init
 ;;
