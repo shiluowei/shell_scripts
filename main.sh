@@ -21,7 +21,8 @@ case "$choose" in
 
 ;;
 	2)
-		echo "开始自动安装OpenResty"
+		source ./scripts/openresty_init.sh
+		openresty_init
 ;;
 	3)
 		echo "开始自动安装Mariadb"
